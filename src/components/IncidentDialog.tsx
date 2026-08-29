@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { saveIncident } from "@/lib/monitor-store";
 
-export const INCIDENT_TYPES = [
+export const INCIDENT_TYPES: string[] = [
   "COD Refusal",
   "Repeated Cancellation",
   "Abusive Behaviour",
@@ -39,14 +39,14 @@ export function IncidentDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const [mobile, setMobile] = useState("");
-  const [type, setType] = useState(INCIDENT_TYPES[0]);
+  const [type, setType] = useState<string>(INCIDENT_TYPES[0]!);
   const [details, setDetails] = useState("");
   const [staff, setStaff] = useState("");
 
   useEffect(() => {
     if (draft) {
       setMobile(draft.mobile ?? "");
-      setType(INCIDENT_TYPES[0]);
+      setType(INCIDENT_TYPES[0]!);
       setDetails("");
       setStaff("");
     }

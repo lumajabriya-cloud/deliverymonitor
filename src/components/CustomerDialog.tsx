@@ -52,7 +52,8 @@ export function CustomerDialog({
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.mobile.trim()) return;
-    saveCustomer({ ...form, mobile: form.mobile.trim(), id: draft?.customer?.id });
+    const id = draft?.customer?.id;
+    saveCustomer(id ? { ...form, mobile: form.mobile.trim(), id } : { ...form, mobile: form.mobile.trim() });
     toast.success("Customer saved");
     onOpenChange(false);
   };

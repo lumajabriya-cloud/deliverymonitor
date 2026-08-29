@@ -242,28 +242,30 @@ export function importCSVText(text: string) {
   rows.forEach((row) => {
     const o: Record<string, string> = {};
     head.forEach((h, i) => (o[h] = (row[i] || "").trim()));
-    if (!o.mobile) return;
-    const existing = findCustomer(db, o.mobile);
-    const status = (["GOOD", "BLOCKED", "REVIEW"] as const).includes(o.status as Status)
-      ? (o.status as Status)
+    const mobile = o["mobile"] || "";
+    if (!mobile) return;
+    const existing = findCustomer(db, mobile);
+    const rawStatus = o["status"] as Status;
+    const status = (["GOOD", "BLOCKED", "REVIEW"] as const).includes(rawStatus)
+      ? rawStatus
       : "GOOD";
     if (existing) {
       db.customers = db.customers.map((c) =>
-        c.id === existing.id ? { ...c, ...o, status } : c,
+        c.id === existing.id ? { ...c, ...o, mobile, status } : c,
       );
     } else {
       db.customers = [
         ...db.customers,
         {
           id: uid(),
-          mobile: o.mobile,
-          name: o.name || "",
+          mobile,
+          name: o["name"] || "",
           status,
-          reason: o.reason || "",
-          notes: o.notes || "",
-          blockDate: o.blockDate || "",
-          lastOrder: o.lastOrder || "",
-          staff: o.staff || "",
+          reason: o["reason"] || "",
+          notes: o["notes"] || "",
+          blockDate: o["blockDate"] || "",
+          lastOrder: o["lastOrder"] || "",
+          staff: o["staff"] || "",
         },
       ];
     }
