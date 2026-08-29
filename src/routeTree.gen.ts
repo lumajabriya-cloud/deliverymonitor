@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CheckRouteImport } from './routes/check'
 import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as DataRouteImport } from './routes/data'
 import { Route as IncidentsRouteImport } from './routes/incidents'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const CustomersRoute = CustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IncidentsRoute = IncidentsRouteImport.update({
   id: '/incidents',
   path: '/incidents',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/check': typeof CheckRoute
   '/customers': typeof CustomersRoute
+  '/data': typeof DataRoute
   '/incidents': typeof IncidentsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/check': typeof CheckRoute
   '/customers': typeof CustomersRoute
+  '/data': typeof DataRoute
   '/incidents': typeof IncidentsRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/check': typeof CheckRoute
   '/customers': typeof CustomersRoute
+  '/data': typeof DataRoute
   '/incidents': typeof IncidentsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/check' | '/customers' | '/incidents'
+  fullPaths: '/' | '/check' | '/customers' | '/data' | '/incidents'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/check' | '/customers' | '/incidents'
-  id: '__root__' | '/' | '/check' | '/customers' | '/incidents'
+  to: '/' | '/check' | '/customers' | '/data' | '/incidents'
+  id: '__root__' | '/' | '/check' | '/customers' | '/data' | '/incidents'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CheckRoute: typeof CheckRoute
   CustomersRoute: typeof CustomersRoute
+  DataRoute: typeof DataRoute
   IncidentsRoute: typeof IncidentsRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/incidents': {
       id: '/incidents'
       path: '/incidents'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CheckRoute: CheckRoute,
   CustomersRoute: CustomersRoute,
+  DataRoute: DataRoute,
   IncidentsRoute: IncidentsRoute,
 }
 export const routeTree = rootRouteImport

@@ -77,15 +77,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Delivery Customer Monitor" },
+      {
+        name: "description",
+        content:
+          "Monitor food delivery customers: block problem numbers, log incidents and check orders before accepting.",
+      },
+      { property: "og:title", content: "Delivery Customer Monitor" },
+      {
+        property: "og:description",
+        content: "Block problem numbers, log incidents and verify customers before accepting orders.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
+
     links: [
       {
         rel: "stylesheet",
